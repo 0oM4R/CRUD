@@ -35,7 +35,7 @@ function clearForm()
 
 }
 
-function displayProducts();{
+function displayProducts() {
     var tableContainer=``;
     for(var i=0;i<productsContainer.length;i++)
     {
