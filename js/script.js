@@ -46,10 +46,15 @@ function displayProducts() {
         <td>`+productsContainer[i].category+`</td>
         <td>`+productsContainer[i].description+`</td>
         <td><button class="btn btn-outline-warning">update</button></td>
-        <td><button class="btn btn-outline-danger">delete</button></td>
+        <td><button onclick="deleteProduct(`+i+`);" class="btn btn-outline-danger">delete</button></td>
         </tr>`
     }
     console.log(tableContainer);
     document.getElementById("tableBody").innerHTML= tableContainer;
   
+}
+function deleteProduct(productIndex){
+    productsContainer.splice(productIndex,1);
+    localStorage.setItem("myProducts",JSON.stringify(productsContainer))
+    displayProducts();
 }
