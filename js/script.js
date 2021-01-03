@@ -49,7 +49,6 @@ function displayProducts() {
         <td><button onclick="deleteProduct(`+i+`);" class="btn btn-outline-danger">delete</button></td>
         </tr>`
     }
-    console.log(tableContainer);
     document.getElementById("tableBody").innerHTML= tableContainer;
   
 }
@@ -57,4 +56,33 @@ function deleteProduct(productIndex){
     productsContainer.splice(productIndex,1);
     localStorage.setItem("myProducts",JSON.stringify(productsContainer))
     displayProducts();
+}
+function searchProduct(searchTerm){
+    for(var i=0; i<productsContainer.length;i++)
+    {
+        var searchResult='';
+        if(productsContainer[i].name.toLowerCase().includes(searchTerm.toLowerCase())==true
+            ||productsContainer[i].price.toLowerCase().includes(searchTerm.toLowerCase())==true
+            ||productsContainer[i].category.toLowerCase().includes(searchTerm.toLowerCase())==true
+            ||productsContainer[i].description.toLowerCase().includes(searchTerm.toLowerCase())==true )
+        {
+            searchResult += 
+           `<tr>
+            <td>`+i+`</td>
+            <td>`+productsContainer[i].name+`</td>
+            <td>`+productsContainer[i].price+`</td>
+            <td>`+productsContainer[i].category+`</td>
+            <td>`+productsContainer[i].description+`</td>
+            <td> <button class="btn btn-outline-warning">update</button> </td>
+            <td> <button onclick="deleteProduct(`+i+`)" class="btn btn-outline-danger">delete</button> </td>
+            </tr>`;
+        }
+        else {
+          console.log("err")
+        }
+        console.log(searchResult);
+        document.getElementById("tableBody").innerHTML=searchResult; 
+        // displayProducts();
+    }
+
 }
