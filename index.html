@@ -33,18 +33,21 @@
 
         <div class="form-group">
             <!--grouping input tags-->
-            <label for="productDescriptionInput">Product Name :</label>
+            <label for="productDescriptionInput">Description :</label>
             <textarea class="form-control"type="text " id="productDescriptionInput"></textarea>
 
 
         </div>
-
-        <button onclick="addProduct()" class="btn btn-outline-info">Add</button>
+        <div id="mainBtn">
         
+        </div>
     </div>
 
+
     <div class="container">  
-            <table class="table">
+            <input onkeyup="searchProduct(this.value)" placeholder="Search product" class="form-control w-75 m-auto" type="text" >
+            
+            <table class="table mt-4">
                 <thead>
                     <th>index</th>
                     <th>Product Name</th>
@@ -54,8 +57,7 @@
                     <th>Delete</th>
                     <th>Update</th>
                 </thead>
-                <tbody id="tableBody">
-                    
+                <tbody id="tableBody">  
                 </tbody>
             </table>
     </div>

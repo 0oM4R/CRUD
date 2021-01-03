@@ -2,8 +2,8 @@ var productNameInput = document.getElementById("productNameInput")
 var productPriceInput = document.getElementById("productPriceInput")
 var productCategoryInput = document.getElementById("productCategoryInput")
 var productDescriptionInput = document.getElementById("productDescriptionInput")
-
-
+var mainBtn=document.getElementById("mainBtn");
+mainBtn.innerHTML=`<button onclick="addProduct()" class="btn btn-outline-info">Add</button>`
 var productsContainer; //storing the products
 if(localStorage.getItem("myProducts")==null){
     productsContainer=[];
@@ -45,7 +45,7 @@ function displayProducts() {
         <td>`+productsContainer[i].price+`</td>
         <td>`+productsContainer[i].category+`</td>
         <td>`+productsContainer[i].description+`</td>
-        <td><button class="btn btn-outline-warning">update</button></td>
+        <td><button onclick="displayForupdate(`+i+`);" class="btn btn-outline-warning">update</button></td>
         <td><button onclick="deleteProduct(`+i+`);" class="btn btn-outline-danger">delete</button></td>
         </tr>`
     }
@@ -73,7 +73,7 @@ function searchProduct(searchTerm){
             <td>`+productsContainer[i].price+`</td>
             <td>`+productsContainer[i].category+`</td>
             <td>`+productsContainer[i].description+`</td>
-            <td> <button class="btn btn-outline-warning">update</button> </td>
+            <td> <button onclick="displayForupdate(`+i+`) class="btn btn-outline-warning">update</button> </td>
             <td> <button onclick="deleteProduct(`+i+`)" class="btn btn-outline-danger">delete</button> </td>
             </tr>`;
         }
@@ -82,7 +82,26 @@ function searchProduct(searchTerm){
         }
         console.log(searchResult);
         document.getElementById("tableBody").innerHTML=searchResult; 
-        // displayProducts();
     }
 
 }
+
+function displayForupdate(productIndex)
+{
+    productNameInput.value  = productsContainer[productIndex].name;
+    productPriceInput.value  = productsContainer[productIndex].price;
+    productCategoryInput.value = productsContainer[productIndex].category;
+    productDescriptionInput.value = productsContainer[productIndex].description;
+    mainBtn.innerHTML =` <button onclick="update(`+productIndex+`)" class="btn btn-outline-warning">update</button> `
+}
+function update(productIndex)
+{
+    productsContainer[productIndex].name= productNameInput.value 
+    productsContainer[productIndex].price=productPriceInput.value
+    productsContainer[productIndex].category = productCategoryInput.value
+    productsContainer[productIndex].description= productDescriptionInput.value  
+    mainBtn.innerHTML=`<button onclick="addProduct()" class="btn btn-outline-info">Add</button>` 
+    clearForm();
+    displayProducts();
+}
+
