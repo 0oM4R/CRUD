@@ -97,8 +97,8 @@ function searchProduct(searchTerm) {
             <td>` + productsContainer[i].price + `</td>
             <td>` + productsContainer[i].category + `</td>
             <td>` + productsContainer[i].description + `</td>
-            <td> <button onclick="displayForupdate(` + i + `) class="btn btn-outline-warning">update</button> </td>
-            <td> <button onclick="deleteProduct(` + i + `)" class="btn btn-outline-danger">delete</button> </td>
+            <td><button onclick="displayForupdate(` + i + `);" class="btn btn-outline-warning">update</button></td>
+              <td><button onclick="deleteProduct(` + i + `);" class="btn btn-outline-danger">delete</button></td>
             </tr>`;
         } else {
             console.log("err")
