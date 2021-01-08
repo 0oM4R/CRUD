@@ -2,9 +2,11 @@ var productNameInput = document.getElementById("productNameInput")
 var productPriceInput = document.getElementById("productPriceInput")
 var productCategoryInput = document.getElementById("productCategoryInput")
 var productDescriptionInput = document.getElementById("productDescriptionInput")
+var validationNameAlert = document.getElementById("nameValidationAlert")
 var mainBtn = document.getElementById("mainBtn");
-mainBtn.innerHTML = `<button onclick="addProduct()" class="btn btn-outline-info">Add</button>`
 var productsContainer; //storing the products
+mainBtn.innerHTML = `<button onclick="addProduct()" class="btn btn-outline-info">Add</button>`
+
 if (localStorage.getItem("myProducts") == null) {
     productsContainer = [];
 } else {
@@ -12,18 +14,40 @@ if (localStorage.getItem("myProducts") == null) {
     displayProducts();
 }
 
+function nameValidating() {
+
+    var nameValidation = /^[A-Z][a-z]{3,6}$/
+    if (nameValidation.test(productNameInput.value) == true) {
+        productNameInput.classList.add("is-valid")
+        productNameInput.classList.remove("is-invalid")
+        validationNameAlert.classList.replace("d-block", "d-none")
+        return 1;
+    }
+    else {
+        productNameInput.classList.add("is-invalid")
+        productNameInput.classList.remove("is-valid")
+        validationNameAlert.classList.replace("d-none", "d-block")
+        return 0;
+    }
+}
+
+productNameInput.addEventListener("keyup", nameValidating)
+
+
 
 function addProduct() {
-    var product = {
-        name: productNameInput.value,
-        price: productPriceInput.value,
-        category: productCategoryInput.value,
-        description: productDescriptionInput.value
-    };
-    productsContainer.push(product);
-    localStorage.setItem("myProducts", JSON.stringify(productsContainer));
-    clearForm();
-    displayProducts();
+    if (nameValidating() == true) {
+        var product = {
+            name: productNameInput.value,
+            price: productPriceInput.value,
+            category: productCategoryInput.value,
+            description: productDescriptionInput.value
+        };
+        productsContainer.push(product);
+        localStorage.setItem("myProducts", JSON.stringify(productsContainer));
+        clearForm();
+        displayProducts();
+    }
 }
 
 function clearForm() {
@@ -31,7 +55,9 @@ function clearForm() {
     productPriceInput.value = "";
     productCategoryInput.value = "";
     productDescriptionInput.value = "";
-
+    productNameInput.classList.remove("is-invalid")
+    productNameInput.classList.remove("is-valid")
+    validationNameAlert.classList.replace("d-block", "d-none")
 }
 
 function displayProducts() {
@@ -100,3 +126,4 @@ function update(productIndex) {
     clearForm();
     displayProducts();
 }
+
